@@ -2,6 +2,8 @@ package com.example.alessander.alcoolougasolina;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -16,8 +18,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar);
-        final TextView txtGasolina = (TextView) findViewById(R.id.txtValorGasolina);
+        // Carregamento dos itens da minha SeekBar
+        final SeekBar seekBar = (SeekBar)findViewById(R.id.seekBar);
+        final TextView txtGasolina = (TextView)findViewById(R.id.txtValorGasolina);
+
+        final Button btn = (Button)findViewById(R.id.btnCalcular);
+        final TextView txtResultado = (TextView)findViewById(R.id.txtResultado);
 
         //Tamanho da SeekBar
         seekBar.setMax(1000);
@@ -33,12 +39,23 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                txtResultado.setText("Clique em Converter para saber o resultado");
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
+            }
+        });
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double valorResultado = (valorGasolina * 0.7)/100.0;
+                String texto = "Abasteça com Álcool se ele custar até: R$ ";
+                texto += formataValor(valorResultado);
+
+                txtResultado.setText(texto);
             }
         });
 
